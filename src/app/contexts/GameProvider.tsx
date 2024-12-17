@@ -1,19 +1,33 @@
 import { useState, useContext, createContext } from 'react'
 
-const GameContext = createContext()
+type Result = 'draw' | 'win' | 'lose'
 
-export function GameProvider({ children }) {
+type Choice = 'rock' | 'paper' | 'scissors'
+
+interface AuthContextValue {
+  chooseOption(option: Choice): void
+  score: number
+  result: Result | undefined
+  selectedOption: Choice | undefined
+}
+
+const GameContext = createContext({} as AuthContextValue)
+
+export function GameProvider({ children }: { children: React.ReactNode }) {
   const [score, setScore] = useState(0)
-  const [selectedOption, setSelectedOption] = useState(null)
-  const [result, setResult] = useState('')
+  const [selectedOption, setSelectedOption] = useState<Choice>()
+  const [result, setResult] = useState<Result>()
 
-  const options = ['rock', 'paper', 'scissors']
+  const options: Choice[] = ['paper', 'rock', 'scissors']
 
-  const getMachineOption = () => {
+  const getMachineOption = (): Choice => {
     return options[Math.floor(Math.random() * options.length)]
   }
 
-  const calcuteResult = (playerOption, machineOption) => {
+  const calcuteResult = (
+    playerOption: Choice,
+    machineOption: Choice,
+  ): Result => {
     if (playerOption === machineOption) {
       return 'draw'
     } else if (
@@ -27,7 +41,7 @@ export function GameProvider({ children }) {
     }
   }
 
-  const chooseOption = (option) => {
+  const chooseOption = (option: Choice) => {
     setSelectedOption(option)
     const machineOption = getMachineOption()
     const gameResult = calcuteResult(option, machineOption)

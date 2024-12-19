@@ -6,6 +6,7 @@ type Choice = 'rock' | 'paper' | 'scissors'
 
 interface AuthContextValue {
   chooseOption(option: Choice): void
+  calculating: boolean
   score: number
   result: Result | undefined
   selectedOption: Choice | undefined
@@ -15,6 +16,7 @@ const GameContext = createContext({} as AuthContextValue)
 
 export function GameProvider({ children }: { children: React.ReactNode }) {
   const [score, setScore] = useState(0)
+  const [calculating, setCalculating] = useState(false)
   const [selectedOption, setSelectedOption] = useState<Choice>()
   const [result, setResult] = useState<Result>()
 
@@ -24,10 +26,14 @@ export function GameProvider({ children }: { children: React.ReactNode }) {
     return options[Math.floor(Math.random() * options.length)]
   }
 
-  const calcuteResult = (
+  const calcuteResult = async (
     playerOption: Choice,
     machineOption: Choice,
-  ): Result => {
+  ): Promise<Result> => {
+    setCalculating(true)
+    await new Promise((resolve) => setTimeout(resolve, 4000))
+    setCalculating(false)
+
     if (playerOption === machineOption) {
       return 'draw'
     } else if (
@@ -41,10 +47,10 @@ export function GameProvider({ children }: { children: React.ReactNode }) {
     }
   }
 
-  const chooseOption = (option: Choice) => {
+  const chooseOption = async (option: Choice) => {
     setSelectedOption(option)
     const machineOption = getMachineOption()
-    const gameResult = calcuteResult(option, machineOption)
+    const gameResult = await calcuteResult(option, machineOption)
 
     setResult(gameResult)
     if (gameResult === 'win') {
@@ -54,7 +60,7 @@ export function GameProvider({ children }: { children: React.ReactNode }) {
 
   return (
     <GameContext.Provider
-      value={{ score, chooseOption, selectedOption, result }}
+      value={{ score, chooseOption, selectedOption, result, calculating }}
     >
       {children}
     </GameContext.Provider>

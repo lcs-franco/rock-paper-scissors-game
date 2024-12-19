@@ -1,17 +1,29 @@
-import Header from '@ui/components/Header'
-import { GameProvider } from './app/contexts/GameProvider'
-import { Router } from './app/router'
+import { Router } from '@app/router'
 import Footer from '@ui/components/Footer'
+import Header from '@ui/components/Header'
+import { AspectRatio } from '@ui/components/ui/AspectRatio'
+import { GameProvider } from './app/contexts/GameProvider'
 
 export default function App() {
   return (
     <GameProvider>
-      <div className="flex flex-col min-h-screen overflow-x-hidden">
-        <Header />
-        <main className="flex-grow">
-          <Router />
-        </main>
-        <Footer />
+      <div className="relative min-h-screen overflow-hidden">
+        <div className="absolute inset-0 -z-10">
+          <AspectRatio>
+            <img
+              src="https://images.unsplash.com/photo-1588345921523-c2dcdb7f1dcd?w=800&dpr=2&q=80"
+              className="h-full w-full object-cover "
+            />
+          </AspectRatio>
+        </div>
+
+        <div className="flex flex-col min-h-screen">
+          <Header />
+          <main className="flex-grow">
+            <Router />
+          </main>
+          <Footer />
+        </div>
       </div>
     </GameProvider>
   )

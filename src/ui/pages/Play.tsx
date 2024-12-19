@@ -3,12 +3,16 @@ import { PaperIcon } from '@ui/components/icons/PaperIcon'
 import { RockIcon } from '@ui/components/icons/RockIcon'
 import { ScissorsIcon } from '@ui/components/icons/ScissorsIcon'
 import { ImageTooltip } from '@ui/components/ImageTooltip'
+import { Button } from '@ui/components/ui/Button'
+import { Spinner } from '@ui/components/ui/Spinner'
 
 export default function Play() {
-  const { chooseOption } = useGameProvider()
+  const { chooseOption, calculating, randomChoose } = useGameProvider()
 
   return (
-    <div className="flex flex-col items-center mt-20">
+    <div className="flex flex-col items-center p-10 mt-5 font-bold">
+      <h1 className="mb-8 text-2xl">Choose one:</h1>
+
       <div className="relative w-96 h-96">
         <ImageTooltip
           tooltipText="Rock"
@@ -32,7 +36,21 @@ export default function Play() {
           <ScissorsIcon />
         </ImageTooltip>
       </div>
-      <p className="mt-32 mb-2 text-lg text-center"></p>
+      <div className="mt-36">
+        {calculating ? (
+          <div className="flex flex-col items-center gap-3">
+            <span>Opponent is choosing a hand ...</span>
+            <Spinner />
+          </div>
+        ) : (
+          <div className="flex flex-col items-center gap-3">
+            <span>Or ...</span>
+            <Button size="lg" onClick={randomChoose}>
+              Try your luck
+            </Button>
+          </div>
+        )}
+      </div>
     </div>
   )
 }

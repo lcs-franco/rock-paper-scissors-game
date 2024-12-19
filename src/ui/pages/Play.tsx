@@ -5,6 +5,7 @@ import { ScissorsIcon } from '@ui/components/icons/ScissorsIcon'
 import { ImageTooltip } from '@ui/components/ImageTooltip'
 import { Button } from '@ui/components/ui/Button'
 import { Spinner } from '@ui/components/ui/Spinner'
+import { CloverIcon } from 'lucide-react'
 
 export default function Play() {
   const { chooseOption, calculating, randomChoose } = useGameProvider()
@@ -45,8 +46,9 @@ export default function Play() {
         ) : (
           <div className="flex flex-col items-center gap-3">
             <span>Or ...</span>
-            <Button size="lg" onClick={randomChoose}>
+            <Button onClick={randomChoose}>
               Try your luck
+              <CloverIcon />
             </Button>
           </div>
         )}

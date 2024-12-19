@@ -6,6 +6,7 @@ type Choice = 'rock' | 'paper' | 'scissors'
 
 interface AuthContextValue {
   chooseOption(option: Choice): void
+  randomChoose(): void
   calculating: boolean
   score: number
   result: Result | undefined
@@ -22,8 +23,14 @@ export function GameProvider({ children }: { children: React.ReactNode }) {
 
   const options: Choice[] = ['paper', 'rock', 'scissors']
 
-  const getMachineOption = (): Choice => {
+  const getRandomOption = (): Choice => {
     return options[Math.floor(Math.random() * options.length)]
+  }
+
+  const randomChoose = async () => {
+    const randomChoice = getRandomOption()
+
+    await chooseOption(randomChoice)
   }
 
   const calcuteResult = async (
@@ -49,7 +56,7 @@ export function GameProvider({ children }: { children: React.ReactNode }) {
 
   const chooseOption = async (option: Choice) => {
     setSelectedOption(option)
-    const machineOption = getMachineOption()
+    const machineOption = getRandomOption()
     const gameResult = await calcuteResult(option, machineOption)
 
     setResult(gameResult)
@@ -60,7 +67,14 @@ export function GameProvider({ children }: { children: React.ReactNode }) {
 
   return (
     <GameContext.Provider
-      value={{ score, chooseOption, selectedOption, result, calculating }}
+      value={{
+        score,
+        chooseOption,
+        selectedOption,
+        result,
+        calculating,
+        randomChoose,
+      }}
     >
       {children}
     </GameContext.Provider>

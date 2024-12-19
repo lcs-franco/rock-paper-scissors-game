@@ -1,6 +1,7 @@
-import { Route, Routes, BrowserRouter } from 'react-router-dom'
-import Play from '../../ui/Play'
-import Game from '../../ui/Game'
+import { BrowserRouter, Route, Routes } from 'react-router-dom'
+
+import Game from '@ui/pages/Game'
+import Play from '@ui/pages/Play'
 
 export function Router() {
   return (

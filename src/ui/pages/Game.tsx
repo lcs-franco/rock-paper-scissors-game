@@ -9,7 +9,7 @@ import { ImageTooltip } from '@ui/components/ImageTooltip'
 import { Button } from '@ui/components/ui/Button'
 
 export default function Play() {
-  const { playerChoice, machineChoice } = useGameProvider()
+  const { playerChoice, machineChoice, result } = useGameProvider()
 
   const renderOptionIcon = (option: Choice) => {
     switch (option) {
@@ -45,6 +45,8 @@ export default function Play() {
           </ImageTooltip>
         </div>
       </div>
+
+      <span className="font-bold uppercase mb-10">{result}</span>
 
       <Link to="/" className="flex justify-center">
         <Button size="lg">Play Again</Button>

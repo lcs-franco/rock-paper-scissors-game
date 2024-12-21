@@ -2,7 +2,7 @@ import { createContext, useContext, useState } from 'react'
 
 type Result = 'draw' | 'win' | 'lose'
 
-type Choice = 'rock' | 'paper' | 'scissors'
+export type Choice = 'rock' | 'paper' | 'scissors'
 
 interface AuthContextValue {
   chooseOption(option: Choice): void

@@ -23,10 +23,10 @@ export default function Play() {
   }
 
   return (
-    <div className="flex flex-col items-center justify-center p-8 mt-5 space-y-12">
-      <h1 className="text-3xl font-extrabold">Result</h1>
+    <div className="flex flex-col items-center justify-center p-8 mt-8">
+      <h1 className="text-3xl font-extrabold mb-16">Result</h1>
 
-      <div className="flex items-center gap-16">
+      <div className="flex items-center gap-16 space-y-6 mb-8">
         <div className="flex flex-col items-center gap-2">
           <span className="font-bold">Player Choice</span>
 

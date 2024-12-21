@@ -1,4 +1,4 @@
-import { cn } from '@app/libs/utils'
+import { cn } from '@app/utils/cn'
 import {
   Tooltip,
   TooltipContent,

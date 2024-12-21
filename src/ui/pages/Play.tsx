@@ -25,21 +25,21 @@ export default function Play() {
 
       <div className="relative w-96 h-96">
         <ImageTooltip
-          tooltipText="Rock"
+          tooltipText="rock"
           onClick={() => handleSubmit('rock')}
           className="absolute top-0 left-1/2 transform -translate-x-1/2 w-48 h-48"
         >
           <RockIcon />
         </ImageTooltip>
         <ImageTooltip
-          tooltipText="Paper"
+          tooltipText="paper"
           onClick={() => handleSubmit('paper')}
           className="absolute bottom-0 left-0 transform -translate-x-20 translate-y-20 w-48 h-48"
         >
           <PaperIcon />
         </ImageTooltip>
         <ImageTooltip
-          tooltipText="Scissors"
+          tooltipText="scissors"
           onClick={() => handleSubmit('scissors')}
           className="absolute bottom-0 right-0 transform translate-x-20 translate-y-20 w-48 h-48"
         >

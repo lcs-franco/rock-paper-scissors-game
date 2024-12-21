@@ -24,18 +24,26 @@ export default function Play() {
 
   return (
     <div className="flex flex-col items-center justify-center p-8 mt-5 space-y-12">
-      <h1 className="text-3xl font-extrabold">Result:</h1>
+      <h1 className="text-3xl font-extrabold">Result</h1>
 
       <div className="flex items-center gap-16">
-        <ImageTooltip tooltipText="Rock" className="w-48 h-48">
-          {renderOptionIcon(playerChoice!)}
-        </ImageTooltip>
+        <div className="flex flex-col items-center gap-2">
+          <span className="font-bold">Player Choice</span>
+
+          <ImageTooltip tooltipText={playerChoice!} className="w-48 h-48">
+            {renderOptionIcon(playerChoice!)}
+          </ImageTooltip>
+        </div>
 
         <XIcon className="w-24 h-24" />
 
-        <ImageTooltip tooltipText="Scissors" className="w-48 h-48">
-          {renderOptionIcon(machineChoice!)}
-        </ImageTooltip>
+        <div className="flex flex-col items-center gap-2">
+          <span className="font-bold">Machine Choice</span>
+
+          <ImageTooltip tooltipText={machineChoice!} className="w-48 h-48">
+            {renderOptionIcon(machineChoice!)}
+          </ImageTooltip>
+        </div>
       </div>
 
       <Link to="/" className="flex justify-center">

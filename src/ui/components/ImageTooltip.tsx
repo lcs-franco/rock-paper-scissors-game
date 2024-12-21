@@ -8,7 +8,7 @@ import {
 
 interface ImageTooltipProps {
   children: JSX.Element
-  onClick: () => void
+  onClick?: () => void
   tooltipText: string
   className?: string
 }

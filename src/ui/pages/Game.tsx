@@ -1,13 +1,26 @@
-import { useGameProvider } from '@app/contexts/GameProvider'
+import { XIcon } from 'lucide-react'
+import { Link } from 'react-router-dom'
+
+import { Choice, useGameProvider } from '@app/contexts/GameProvider'
+import { PaperIcon } from '@ui/components/icons/PaperIcon'
 import { RockIcon } from '@ui/components/icons/RockIcon'
 import { ScissorsIcon } from '@ui/components/icons/ScissorsIcon'
 import { ImageTooltip } from '@ui/components/ImageTooltip'
 import { Button } from '@ui/components/ui/Button'
-import { XIcon } from 'lucide-react'
-import { Link } from 'react-router-dom'
 
 export default function Play() {
-  const { selectedOption } = useGameProvider()
+  const { playerChoice, machineChoice } = useGameProvider()
+
+  const renderOptionIcon = (option: Choice) => {
+    switch (option) {
+      case 'rock':
+        return <RockIcon />
+      case 'paper':
+        return <PaperIcon />
+      case 'scissors':
+        return <ScissorsIcon />
+    }
+  }
 
   return (
     <div className="flex flex-col items-center justify-center p-8 mt-5 space-y-12">
@@ -15,13 +28,13 @@ export default function Play() {
 
       <div className="flex items-center gap-16">
         <ImageTooltip tooltipText="Rock" className="w-48 h-48">
-          <RockIcon />
+          {renderOptionIcon(playerChoice!)}
         </ImageTooltip>
 
         <XIcon className="w-24 h-24" />
 
         <ImageTooltip tooltipText="Scissors" className="w-48 h-48">
-          <ScissorsIcon />
+          {renderOptionIcon(machineChoice!)}
         </ImageTooltip>
       </div>
 

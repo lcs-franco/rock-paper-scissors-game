@@ -23,7 +23,7 @@ export default function Play() {
   }
 
   return (
-    <div className="flex flex-col items-center justify-center p-8 mt-8">
+    <div className="flex flex-col items-center justify-center p-8 mt-4">
       <h1 className="text-3xl font-extrabold mb-16">Result</h1>
 
       <div className="flex items-center gap-16 space-y-6 mb-8">
@@ -46,7 +46,7 @@ export default function Play() {
         </div>
       </div>
 
-      <span className="font-bold uppercase mb-10">{result}</span>
+      <span className="font-bold text-xl uppercase mb-10">{result}</span>
 
       <Link to="/" className="flex justify-center">
         <Button size="lg">Play Again</Button>

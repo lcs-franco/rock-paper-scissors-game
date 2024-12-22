@@ -20,7 +20,7 @@ export default function Play() {
   }
 
   return (
-    <div className="flex flex-col items-center p-10 mt-5 font-bold">
+    <div className="flex flex-col items-center p-10 font-bold">
       <h1 className="mb-8 text-3xl">Choose one:</h1>
 
       <div className="relative w-96 h-96">

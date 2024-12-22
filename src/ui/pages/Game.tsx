@@ -8,7 +8,7 @@ import { ScissorsIcon } from '@ui/components/icons/ScissorsIcon'
 import { ImageTooltip } from '@ui/components/ImageTooltip'
 import { Button } from '@ui/components/ui/Button'
 
-export default function Play() {
+export default function Game() {
   const { gameState } = useGameProvider()
 
   const renderOptionIcon = (option: Choice) => {

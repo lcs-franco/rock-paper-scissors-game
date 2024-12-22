@@ -2,7 +2,7 @@ import { useGameProvider } from '@app/contexts/GameProvider'
 import { Card, CardContent, CardHeader, CardTitle } from './ui/Card'
 
 export default function Header() {
-  const { playerScore, machineScore } = useGameProvider()
+  const { scores } = useGameProvider()
 
   return (
     <div className="flex justify-between p-4 text-xl items-center">
@@ -15,8 +15,8 @@ export default function Header() {
             <CardTitle>Score</CardTitle>
           </CardHeader>
           <CardContent>
-            <p>Player: {playerScore} </p>
-            <p>Machine: {machineScore} </p>
+            <p>Player: {scores.player} </p>
+            <p>Machine: {scores.machine} </p>
           </CardContent>
         </Card>
       </div>

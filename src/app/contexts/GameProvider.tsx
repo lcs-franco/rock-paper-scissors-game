@@ -8,7 +8,8 @@ interface AuthContextValue {
   chooseOption(option: Choice): void
   randomChoose(): void
   calculating: boolean
-  score: number
+  playerScore: number
+  machineScore: number
   result: Result | undefined
   playerChoice: Choice | undefined
   machineChoice: Choice | undefined
@@ -17,7 +18,8 @@ interface AuthContextValue {
 const GameContext = createContext({} as AuthContextValue)
 
 export function GameProvider({ children }: { children: React.ReactNode }) {
-  const [score, setScore] = useState(0)
+  const [playerScore, setPlayerScore] = useState(0)
+  const [machineScore, setMachineScore] = useState(0)
   const [calculating, setCalculating] = useState(false)
   const [playerChoice, setPlayerChoice] = useState<Choice>()
   const [machineChoice, setMachineChoice] = useState<Choice>()
@@ -66,16 +68,20 @@ export function GameProvider({ children }: { children: React.ReactNode }) {
 
     setResult(gameResult)
     if (gameResult === 'win') {
-      setScore(score + 1)
+      setPlayerScore(playerScore + 1)
+    }
+    if (gameResult === 'lose') {
+      setMachineScore(playerScore + 1)
     }
   }
 
   return (
     <GameContext.Provider
       value={{
-        score,
+        playerScore,
         chooseOption,
         playerChoice,
+        machineScore,
         result,
         calculating,
         randomChoose,

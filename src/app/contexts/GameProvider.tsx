@@ -66,20 +66,11 @@ export function GameProvider({ children }: { children: React.ReactNode }) {
   }
 
   const chooseOption = async (option: Choice) => {
-    setPlayerChoice(option)
-
-    const machineOption = getRandomOption()
-    setMachineChoice(machineOption)
-
-    const gameResult = await calcuteResult(option, machineOption)
-
-    setResult(gameResult)
-    if (gameResult === 'win') {
-      setPlayerScore(playerScore + 1)
+    const { playerChoice } = gameState
+    if (option === 'rock' && playerChoice === 'rock') {
+      throw new Error('You cannot choose ROCK twice in a row!')
     }
-    if (gameResult === 'lose') {
-      setMachineScore(machineScore + 1)
-    }
+    await playGame(option)
   }
 
   return (

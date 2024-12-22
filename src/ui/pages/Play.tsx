@@ -34,19 +34,19 @@ export default function Play() {
         <ImageTooltip
           tooltipText="paper"
           onClick={() => handleSubmit('paper')}
-          className="absolute bottom-0 left-0 transform -translate-x-20 translate-y-20 w-48 h-48"
+          className="absolute bottom-0 left-0 transform -translate-x-20 translate-y-20 w-48 h-56"
         >
           <PaperIcon />
         </ImageTooltip>
         <ImageTooltip
           tooltipText="scissors"
           onClick={() => handleSubmit('scissors')}
-          className="absolute bottom-0 right-0 transform translate-x-20 translate-y-20 w-48 h-48"
+          className="absolute bottom-0 right-0 transform translate-x-20 translate-y-20 w-48 h-56"
         >
           <ScissorsIcon />
         </ImageTooltip>
       </div>
-      <div className="mt-36">
+      <div className="mt-20">
         {calculating ? (
           <div className="flex flex-col items-center gap-3">
             <span>Opponent is choosing a hand ...</span>

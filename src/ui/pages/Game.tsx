@@ -9,7 +9,7 @@ import { ImageTooltip } from '@ui/components/ImageTooltip'
 import { Button } from '@ui/components/ui/Button'
 
 export default function Play() {
-  const { playerChoice, machineChoice, result } = useGameProvider()
+  const { gameState } = useGameProvider()
 
   const renderOptionIcon = (option: Choice) => {
     switch (option) {
@@ -30,8 +30,11 @@ export default function Play() {
         <div className="flex flex-col items-center gap-2">
           <span className="font-bold">Player Choice</span>
 
-          <ImageTooltip tooltipText={playerChoice!} className="w-48 h-48">
-            {renderOptionIcon(playerChoice!)}
+          <ImageTooltip
+            tooltipText={gameState.playerChoice!}
+            className="w-48 h-48"
+          >
+            {renderOptionIcon(gameState.playerChoice!)}
           </ImageTooltip>
         </div>
 
@@ -40,13 +43,18 @@ export default function Play() {
         <div className="flex flex-col items-center gap-2">
           <span className="font-bold">Machine Choice</span>
 
-          <ImageTooltip tooltipText={machineChoice!} className="w-48 h-48">
-            {renderOptionIcon(machineChoice!)}
+          <ImageTooltip
+            tooltipText={gameState.machineChoice!}
+            className="w-48 h-48"
+          >
+            {renderOptionIcon(gameState.machineChoice!)}
           </ImageTooltip>
         </div>
       </div>
 
-      <span className="font-bold text-xl uppercase mb-10">{result}</span>
+      <span className="font-bold text-xl uppercase mb-10">
+        {gameState.result}
+      </span>
 
       <Link to="/" className="flex justify-center">
         <Button size="lg">Play Again</Button>

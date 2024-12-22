@@ -4,26 +4,26 @@ type Result = 'draw' | 'win' | 'lose'
 
 export type Choice = 'rock' | 'paper' | 'scissors'
 
-interface AuthContextValue {
+interface GameContextValue {
   chooseOption(option: Choice): void
   randomChoose(): void
   calculating: boolean
-  playerScore: number
-  machineScore: number
-  result: Result | undefined
-  playerChoice: Choice | undefined
-  machineChoice: Choice | undefined
+  scores: { player: number; machine: number }
+  gameState: GameState
 }
 
-const GameContext = createContext({} as AuthContextValue)
+interface GameState {
+  playerChoice?: Choice
+  machineChoice?: Choice
+  result?: Result
+}
+
+const GameContext = createContext({} as GameContextValue)
 
 export function GameProvider({ children }: { children: React.ReactNode }) {
-  const [playerScore, setPlayerScore] = useState(0)
-  const [machineScore, setMachineScore] = useState(0)
+  const [scores, setScores] = useState({ player: 0, machine: 0 })
   const [calculating, setCalculating] = useState(false)
-  const [playerChoice, setPlayerChoice] = useState<Choice>()
-  const [machineChoice, setMachineChoice] = useState<Choice>()
-  const [result, setResult] = useState<Result>()
+  const [gameState, setGameState] = useState<GameState>({})
 
   const options: Choice[] = ['paper', 'rock', 'scissors']
 
@@ -33,29 +33,36 @@ export function GameProvider({ children }: { children: React.ReactNode }) {
 
   const randomChoose = async () => {
     const randomChoice = getRandomOption()
-
     await chooseOption(randomChoice)
   }
 
-  const calcuteResult = async (
-    playerOption: Choice,
-    machineOption: Choice,
-  ): Promise<Result> => {
+  const calcuteResult = (player: Choice, machine: Choice): Result => {
+    if (player === machine) return 'draw'
+    if (
+      (player === 'rock' && machine === 'scissors') ||
+      (player === 'scissors' && machine === 'paper') ||
+      (player === 'paper' && machine === 'rock')
+    )
+      return 'win'
+
+    return 'lose'
+  }
+
+  const updateScores = (result: Result) => {
+    setScores((prev) => ({
+      player: prev.player + (result === 'win' ? 1 : 0),
+      machine: prev.machine + (result === 'lose' ? 1 : 0),
+    }))
+  }
+
+  const playGame = async (playerChoice: Choice) => {
     setCalculating(true)
+    const machineChoice = getRandomOption()
+    const result = calcuteResult(playerChoice, machineChoice)
+    setGameState({ playerChoice, machineChoice, result })
+    updateScores(result)
     await new Promise((resolve) => setTimeout(resolve, 4000))
     setCalculating(false)
-
-    if (playerOption === machineOption) {
-      return 'draw'
-    } else if (
-      (playerOption === 'rock' && machineOption === 'scissors') ||
-      (playerOption === 'scissors' && machineOption === 'paper') ||
-      (playerOption === 'paper' && machineOption === 'rock')
-    ) {
-      return 'win'
-    } else {
-      return 'lose'
-    }
   }
 
   const chooseOption = async (option: Choice) => {
@@ -78,14 +85,11 @@ export function GameProvider({ children }: { children: React.ReactNode }) {
   return (
     <GameContext.Provider
       value={{
-        playerScore,
-        chooseOption,
-        playerChoice,
-        machineScore,
-        result,
+        scores,
         calculating,
+        gameState,
+        chooseOption,
         randomChoose,
-        machineChoice,
       }}
     >
       {children}

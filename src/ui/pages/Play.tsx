@@ -1,4 +1,5 @@
 import { CloverIcon } from 'lucide-react'
+import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 import { Choice, useGameProvider } from '@app/contexts/GameProvider'
@@ -12,10 +13,16 @@ import { Spinner } from '@ui/components/ui/Spinner'
 export default function Play() {
   const { chooseOption, calculating, randomChoose } = useGameProvider()
   const navigate = useNavigate()
+  const [selectedChoice, setSelectedChoice] = useState<Choice | null>(null)
 
   const handleSubmit = async (option?: Choice, random = false) => {
-    if (!random) await chooseOption(option!)
-    else await randomChoose()
+    if (!random) {
+      setSelectedChoice(option!)
+      await chooseOption(option!)
+    } else {
+      setSelectedChoice(null)
+      await randomChoose()
+    }
     navigate('/game')
   }
 
@@ -27,6 +34,7 @@ export default function Play() {
         <ImageTooltip
           tooltipText="rock"
           onClick={() => handleSubmit('rock')}
+          isSelected={selectedChoice === 'rock'}
           className="absolute top-0 left-1/2 transform -translate-x-1/2 w-48 h-48"
         >
           <RockIcon />
@@ -34,14 +42,16 @@ export default function Play() {
         <ImageTooltip
           tooltipText="paper"
           onClick={() => handleSubmit('paper')}
-          className="absolute bottom-0 left-0 transform -translate-x-20 translate-y-20 w-48 h-56"
+          isSelected={selectedChoice === 'paper'}
+          className="absolute bottom-0 left-0 transform -translate-x-20 translate-y-20 w-48 h-48 mb-8"
         >
           <PaperIcon />
         </ImageTooltip>
         <ImageTooltip
           tooltipText="scissors"
           onClick={() => handleSubmit('scissors')}
-          className="absolute bottom-0 right-0 transform translate-x-20 translate-y-20 w-48 h-56"
+          isSelected={selectedChoice === 'scissors'}
+          className="absolute bottom-0 right-0 transform translate-x-20 translate-y-20 w-48 h-48 mb-8"
         >
           <ScissorsIcon />
         </ImageTooltip>

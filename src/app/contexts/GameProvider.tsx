@@ -71,7 +71,7 @@ export function GameProvider({ children }: { children: React.ReactNode }) {
       setPlayerScore(playerScore + 1)
     }
     if (gameResult === 'lose') {
-      setMachineScore(playerScore + 1)
+      setMachineScore(machineScore + 1)
     }
   }
 

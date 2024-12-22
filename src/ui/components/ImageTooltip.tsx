@@ -11,6 +11,7 @@ interface ImageTooltipProps {
   onClick?: () => void
   tooltipText: string
   className?: string
+  isSelected?: boolean
 }
 
 export function ImageTooltip({
@@ -18,6 +19,7 @@ export function ImageTooltip({
   onClick,
   tooltipText,
   className,
+  isSelected,
 }: ImageTooltipProps) {
   return (
     <TooltipProvider delayDuration={200}>
@@ -26,11 +28,20 @@ export function ImageTooltip({
           <div
             onClick={onClick}
             className={cn(
-              'transform transition-transform duration-200 hover:scale-110',
+              'transform transition-transform duration-200',
+              isSelected ? 'scale-110' : 'hover:scale-110',
               className,
             )}
           >
-            {children}
+            <div
+              className={cn(
+                'absolute inset-0 rounded-full transition-all duration-300 ease-in-out',
+                isSelected
+                  ? 'bg-gray-500 opacity-50 scale-100'
+                  : 'bg-transparent opacity-0 scale-75',
+              )}
+            ></div>
+            <div className="relative">{children}</div>
           </div>
         </TooltipTrigger>
         <TooltipContent side="bottom">

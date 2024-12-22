@@ -25,7 +25,7 @@ export default function Footer() {
 
       <Dialog>
         <DialogTrigger>
-          <Button variant="outline" className="text-black">
+          <Button asChild variant="outline" className="text-black">
             Rules
           </Button>
         </DialogTrigger>

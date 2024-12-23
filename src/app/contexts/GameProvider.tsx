@@ -57,11 +57,11 @@ export function GameProvider({ children }: { children: React.ReactNode }) {
 
   const playGame = async (playerChoice: Choice) => {
     setCalculating(true)
+    await new Promise((resolve) => setTimeout(resolve, 4000))
     const machineChoice = getRandomOption()
     const result = calcuteResult(playerChoice, machineChoice)
     setGameState({ playerChoice, machineChoice, result })
     updateScores(result)
-    await new Promise((resolve) => setTimeout(resolve, 4000))
     setCalculating(false)
   }
 

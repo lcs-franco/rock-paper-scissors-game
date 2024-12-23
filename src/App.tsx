@@ -2,6 +2,7 @@ import { Router } from '@app/router'
 import Footer from '@ui/components/Footer'
 import Header from '@ui/components/Header'
 import { AspectRatio } from '@ui/components/ui/AspectRatio'
+import { Toaster } from '@ui/components/ui/Toaster'
 import { GameProvider } from './app/contexts/GameProvider'
 
 export default function App() {
@@ -21,6 +22,7 @@ export default function App() {
           <Header />
           <main className="flex-grow">
             <Router />
+            <Toaster />
           </main>
           <Footer />
         </div>

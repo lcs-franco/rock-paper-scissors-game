@@ -1,3 +1,4 @@
+import { useToast } from '@app/hooks/use-toast'
 import { createContext, useContext, useState } from 'react'
 
 type Result = 'draw' | 'win' | 'lose'
@@ -24,6 +25,7 @@ export function GameProvider({ children }: { children: React.ReactNode }) {
   const [scores, setScores] = useState({ player: 0, machine: 0 })
   const [calculating, setCalculating] = useState(false)
   const [gameState, setGameState] = useState<GameState>({})
+  const { toast } = useToast()
 
   const options: Choice[] = ['paper', 'rock', 'scissors']
 
@@ -68,7 +70,12 @@ export function GameProvider({ children }: { children: React.ReactNode }) {
   const chooseOption = async (option: Choice) => {
     const { playerChoice } = gameState
     if (option === 'rock' && playerChoice === 'rock') {
-      throw new Error('You cannot choose ROCK twice in a row!')
+      toast({
+        variant: 'destructive',
+        title: 'Rock twice option',
+        description: 'You cannot choose ROCK twice in a row!',
+      })
+      return
     }
     await playGame(option)
   }

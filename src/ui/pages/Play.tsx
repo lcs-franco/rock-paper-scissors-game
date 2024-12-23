@@ -3,6 +3,7 @@ import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 import { Choice, useGameProvider } from '@app/contexts/GameProvider'
+import { useToast } from '@app/hooks/use-toast'
 import { PaperIcon } from '@ui/components/icons/PaperIcon'
 import { RockIcon } from '@ui/components/icons/RockIcon'
 import { ScissorsIcon } from '@ui/components/icons/ScissorsIcon'
@@ -14,16 +15,23 @@ export default function Play() {
   const { chooseOption, calculating, randomChoose } = useGameProvider()
   const navigate = useNavigate()
   const [selectedChoice, setSelectedChoice] = useState<Choice | null>(null)
+  const { toast } = useToast()
 
   const handleSubmit = async (option?: Choice, random = false) => {
-    if (!random) {
-      setSelectedChoice(option!)
-      await chooseOption(option!)
-    } else {
+    try {
+      setSelectedChoice(random ? null : option!)
+      random ? await randomChoose() : await chooseOption(option!)
+      navigate('/game')
+    } catch (error) {
+      if (error instanceof Error)
+        toast({
+          variant: 'destructive',
+          title: 'Rock twice option',
+          description: error.message,
+        })
+
       setSelectedChoice(null)
-      await randomChoose()
     }
-    navigate('/game')
   }
 
   return (
